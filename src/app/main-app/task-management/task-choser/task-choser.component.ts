@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { TaskType } from '../models/task-management.model';
 import { MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { JsonFormLoaderService } from 'src/app/common-services/form-json.service';
 
 @Component({
     selector: 'app-task-choser',
@@ -14,8 +14,11 @@ export class TaskChoserComponent {
 
     form: FormGroup;
 
-    constructor(private dialogRef: MatDialogRef<TaskChoserComponent>) {
-        this.taskTypes = Object.values(TaskType);
+    constructor(
+        private dialogRef: MatDialogRef<TaskChoserComponent>,
+        jsonFormLoaderService: JsonFormLoaderService
+    ) {
+        this.taskTypes = jsonFormLoaderService.getFormTypes();
         this.form = new FormGroup({
             taskType: new FormControl('', [Validators.required])
         });

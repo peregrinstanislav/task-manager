@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JsonForm, JsonFormControls } from '../common-models/form-controls.model';
 import { lastValueFrom } from 'rxjs';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../main-app/task-management/models/task-management.model';
 import { get } from 'lodash';
 
@@ -47,7 +47,11 @@ export class JsonFormLoaderService {
         return jsonFormControls;
     }
 
-    private createValidators(control: JsonFormControls): any {
+    getFormTypes(): string[] {
+        return JsonFormLoaderService.jsonForm.forms.map(form => form.key);
+    }
+
+    private createValidators(control: JsonFormControls): AbstractControlOptions {
         const validatorsToAdd = [];
         for (const [key, value] of Object.entries(control.validators)) {
             switch (key) {
@@ -90,6 +94,6 @@ export class JsonFormLoaderService {
                     break;
             }
         }
-        return validatorsToAdd;
+        return validatorsToAdd as AbstractControlOptions;
     }
 }

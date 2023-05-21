@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Task, TaskType } from '../models/task-management.model';
+import { Task } from '../models/task-management.model';
 import { JsonFormControls } from 'src/app/common-models/form-controls.model';
 import { JsonFormLoaderService } from 'src/app/common-services/form-json.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -14,7 +14,7 @@ import { set } from 'lodash';
 export class TaskDetailComponent implements OnInit {
 
     selectedTask!: Task;
-    selectedType: TaskType;
+    selectedType: string;
 
     jsonFormControls: JsonFormControls[] = [];
     formGroup: FormGroup;
@@ -23,7 +23,7 @@ export class TaskDetailComponent implements OnInit {
 
     constructor(
         private dialogRef: MatDialogRef<TaskDetailComponent>,
-        @Inject(MAT_DIALOG_DATA) private data: { update: boolean, data: any },
+        @Inject(MAT_DIALOG_DATA) data: { update: boolean, data: any },
         private formBuilder: FormBuilder,
         private jsonFormLoaderService: JsonFormLoaderService
     ) {

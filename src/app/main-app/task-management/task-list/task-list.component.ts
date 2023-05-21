@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Task, TaskType } from '../models/task-management.model';
+import { Task } from '../models/task-management.model';
 import { DxDataGridComponent } from 'devextreme-angular';
 import { FocusedRowChangingEvent, RowClickEvent, ToolbarPreparingEvent } from 'devextreme/ui/data_grid';
 import { calculateFilterExpression, calculateFilterExpressionOfTranslatedValue, calculateSortValue } from 'src/app/utils/misc.util';
@@ -20,7 +20,6 @@ import { TaskDetailComponent } from '../task-detail/task-detail.component';
 })
 export class TaskListComponent implements OnInit {
 
-    taskType = TaskType;
     worker: Worker<Task>;
 
     // devextreme konf
