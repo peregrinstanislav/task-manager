@@ -31,7 +31,7 @@
             "placeholder": "Typ úlohy"
         },
         "taskDetail": {
-            "editTitle": "Zmena úlohy",
+            "editTitle": "Editácia úlohy",
             "newTitle": "Nová úloha",
             "formFields": {
                 "name": "Názov",
