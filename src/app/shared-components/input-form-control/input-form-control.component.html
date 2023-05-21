@@ -1,9 +1,11 @@
 <div
   [formGroup]="form"
   fxLayout="row"
-  class="m-b-15"
 >
-  <mat-form-field fxFlex="100">
+  <mat-form-field
+    fxFlex="100"
+    appearance="fill"
+  >
     <mat-label>
       {{'taskManagement.taskDetail.formFields.' +  control.name | translate}}
     </mat-label>

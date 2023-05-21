@@ -19,10 +19,12 @@ body {
     color: white !important;
 }
 
-/*******************
-Paddings
-*******************/
+
 html body {
+    /*******************
+    Paddings
+    *******************/
+
     .p-0 {
         padding: 0px;
     }
@@ -147,15 +149,10 @@ html body {
         padding-left: 30px;
     }
 
-    .p-r-30 {
-        padding-right: 30px;
-    }
-}
+    /*******************
+    Margin
+    *******************/
 
-/*******************
-Margin
-*******************/
-html body {
     .m-0 {
         margin: 0px;
     }
@@ -269,4 +266,4 @@ html body {
     }
 }
 
-@import "devextreme/dist/css/dx.material.purple.light.compact.css";
+@import "devextreme/dist/css/dx.material.purple.light.css";

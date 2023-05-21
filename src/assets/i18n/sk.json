@@ -27,7 +27,7 @@
             "vacuum-clean": "Vysávanie"
         },
         "taskChooser": {
-            "title": "Vyberte typ úlohy",
+            "title": "Vyberte typ novej úlohy",
             "placeholder": "Typ úlohy"
         },
         "taskDetail": {

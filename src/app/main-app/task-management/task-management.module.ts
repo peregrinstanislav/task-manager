@@ -18,6 +18,7 @@ import { ConfirmDialogModule } from 'src/app/shared-components/confirm-dialog/co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { DynamicFormControlModule } from 'src/app/shared-components/dynamic-form-control/dynamic-form-control.module';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
     declarations: [
@@ -36,9 +37,10 @@ import { DynamicFormControlModule } from 'src/app/shared-components/dynamic-form
         MatDialogModule,
         FlexLayoutModule,
         ConfirmDialogModule,
-        FormsModule, 
+        FormsModule,
         ReactiveFormsModule,
         MatInputModule,
+        MatDividerModule,
         DynamicFormControlModule,
         RouterModule.forChild(TaskManagementRoutes),
     ],

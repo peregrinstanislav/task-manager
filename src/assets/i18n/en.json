@@ -27,7 +27,7 @@
             "vacuum-clean": "Vaccum clean"
         },
         "taskChooser" : {
-            "title" : "Select task type",
+            "title" : "Select type of new task",
             "placeholder" : "Task type"
         },
         "taskDetail": {
