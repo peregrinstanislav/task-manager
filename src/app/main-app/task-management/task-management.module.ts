@@ -17,6 +17,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ConfirmDialogModule } from 'src/app/shared-components/confirm-dialog/confirm-dialog.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
+import { DynamicFormControlModule } from 'src/app/shared-components/dynamic-form-control/dynamic-form-control.module';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import { MatInputModule } from '@angular/material/input';
         FormsModule, 
         ReactiveFormsModule,
         MatInputModule,
+        DynamicFormControlModule,
         RouterModule.forChild(TaskManagementRoutes),
     ],
     exports: [],

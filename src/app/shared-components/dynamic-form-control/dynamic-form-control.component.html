@@ -1,0 +1,34 @@
+<div
+  [ngSwitch]="control.type"
+  [formGroup]="form"
+  fxLayout="row"
+  class="m-b-15"
+>
+  <mat-form-field
+    *ngSwitchCase="'text'"
+    fxFlex="100"
+  >
+    <mat-label>
+      {{'taskManagement.taskDetail.formFields.' +  control.name| translate}}
+    </mat-label>
+    <input
+      matInput
+      [formControlName]="control.name"
+      [type]="control.type"
+    >
+  </mat-form-field>
+  <mat-form-field
+    *ngSwitchCase="'number'"
+    fxFlex="100"
+  >
+    <mat-label>
+      {{'taskManagement.taskDetail.formFields.' +  control.name| translate}}
+    </mat-label>
+    <input
+      matInput
+      [formControlName]="control.name"
+      [type]="control.type"
+    >
+  </mat-form-field>
+  <p *ngSwitchDefault>default</p>
+</div>
