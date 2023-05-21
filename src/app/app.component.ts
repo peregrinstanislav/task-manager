@@ -3,9 +3,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { languages } from './common-models/language.model';
 import { getLanguage, setLanguage } from './utils/webstorage.util';
 import { AppConfigService } from './common-services/app-config.service';
-import { loadMessages, locale } from 'devextreme/localization';
+import { locale } from 'devextreme/localization';
 import { registerLocaleData } from '@angular/common';
-import dxSkMessages from '../assets/i18n/dx/sk.json';
 import localeSk from '@angular/common/locales/sk';
 
 @Component({
@@ -37,7 +36,6 @@ export class AppComponent {
         this.translate.use(lang);
         this.translate.setDefaultLang(lang);
         registerLocaleData(localeSk, 'sk');
-        loadMessages(dxSkMessages);
         locale(lang);
     }
 }
