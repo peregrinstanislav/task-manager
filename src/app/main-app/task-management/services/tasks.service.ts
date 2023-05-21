@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppConfigService } from '../../../common-services/app-config.service';
 import { AppConfig } from 'src/app/common-models/config.model';
@@ -49,13 +49,5 @@ export class TasksService {
      */
     public deleteTask(taskId: string): Observable<any> {
         return this.httpClient.delete(this.config.apiUrl + 'tasks/' + taskId);
-    }
-
-    private getHeaders(): any {
-        return {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json; charset=utf-8'
-            })
-        };
     }
 }

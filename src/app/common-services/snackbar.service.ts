@@ -12,16 +12,12 @@ export class SnackbarService {
 
     showErrorSnackBar(message? : string): void {
         const text = message ? message : this.translate.instant('unexpectedError');
-        this._snackBar.open(text, '', {
-            duration: 4000,
-            // panelClass: ['error-snackbar']
-        });
+        this._snackBar.open(text, 'x');
     }
 
     showSuccessSnackBar(message?: string): void {
         const text = message ? message : this.translate.instant('requestSucesfull');
-        this._snackBar.open(text, '', {
-            duration: 4000,
+        this._snackBar.open(text, 'x', {
             panelClass: ['success-snackbar']
         });
     }
