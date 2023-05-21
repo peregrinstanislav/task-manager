@@ -12,5 +12,7 @@
       [formControlName]="control.name"
       [type]="control.type"
     >
+    <mat-error *ngIf="form.controls[control.name].hasError('required')">{{'required' | translate}}</mat-error>
+    <mat-error *ngIf="form.controls[control.name].hasError('min')">{{'minValue' | translate}}</mat-error>
   </mat-form-field>
 </div>

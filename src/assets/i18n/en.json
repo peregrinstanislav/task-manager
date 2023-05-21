@@ -42,5 +42,7 @@
         }
     },
     "unexpectedError": "Request unsucesfull",
-    "requestSucesfull": "Request sucesfull"
+    "requestSucesfull": "Request sucesfull",
+    "required": "Value is required",
+    "minValue": "Value cannot be less than 0"
 }

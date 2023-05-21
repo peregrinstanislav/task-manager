@@ -4,6 +4,7 @@ import { JsonForm, JsonFormControls } from '../common-models/form-controls.model
 import { lastValueFrom } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../main-app/task-management/models/task-management.model';
+import { get } from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class JsonFormLoaderService {
@@ -29,10 +30,7 @@ export class JsonFormLoaderService {
     createForm(jsonFormControls: JsonFormControls[], selectedTask: Task, formGroup: FormGroup, formBuilder: FormBuilder): FormGroup {
         for (const control of jsonFormControls) {
             const validators = this.createValidators(control);
-            let value = selectedTask ? (selectedTask as any)[control.name] : '';
-            if (!value && selectedTask) {
-                value = selectedTask.fields[control.name];
-            }
+            const value = selectedTask ? get(selectedTask, control.objectPath) : '';
             formGroup.addControl(control.name, formBuilder.control(value, validators));
         }
         return formGroup;
@@ -42,11 +40,8 @@ export class JsonFormLoaderService {
         const jsonFormControls: JsonFormControls[] = [];
         const formType = JsonFormLoaderService.jsonForm.forms.find(f => f.key === selectedType);
         if (formType) {
-            for (const formControlName of formType.values) {
-                const control = JsonFormLoaderService.jsonForm.formControls.find(control => control.name === formControlName);
-                if (control) {
-                    jsonFormControls.push(control);
-                }
+            for (const formControl of formType.formControls) {
+                jsonFormControls.push(formControl);
             }
         }
         return jsonFormControls;

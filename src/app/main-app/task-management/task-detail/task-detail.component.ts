@@ -4,6 +4,7 @@ import { Task, TaskType } from '../models/task-management.model';
 import { JsonFormControls } from 'src/app/common-models/form-controls.model';
 import { JsonFormLoaderService } from 'src/app/common-services/form-json.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { set } from 'lodash';
 
 @Component({
     selector: 'app-task-detail',
@@ -49,17 +50,14 @@ export class TaskDetailComponent implements OnInit {
         const task = {
             _id: this.selectedTask?._id ?? undefined,
             type: this.selectedType,
-            name: this.formGroup.value.name,
-            fields: {}
         };
-        for (const value of this.jsonFormControls) {
-            if (value.name !== 'name') {
-                if (value.type === 'number') {
-                    (task.fields as any)[value.name] = Number(this.formGroup.value[value.name]);
-                } else {
-                    (task.fields as any)[value.name] = this.formGroup.value[value.name];
-                }
+        for (const control of this.jsonFormControls) {
+            let value = this.formGroup.value[control.name];
+            if (control.type === 'number') {
+                value = Number(value);
             }
+            const path = control.objectPath;
+            set(task, path, value);
         }
         this.dialogRef.close({ update: this.isEditForm, task });
     }

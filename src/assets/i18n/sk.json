@@ -35,12 +35,14 @@
             "newTitle": "Nová úloha",
             "formFields": {
                 "name": "Názov",
-                "who" : "Kto",
-                "room" : "Izba",
-                "durationInHours" : "Ako dlho"
+                "who": "Kto",
+                "room": "Izba",
+                "durationInHours": "Ako dlho"
             }
         }
     },
     "unexpectedError": "Operácia sa nepodarila",
-    "requestSucesfull": "Operácia úspešná"
+    "requestSucesfull": "Operácia úspešná",
+    "required": "Hodnota je povinná",
+    "minValue": "Hodnota je menšia ako 0"
 }

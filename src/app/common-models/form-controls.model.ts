@@ -21,16 +21,16 @@ export interface JsonFormControlOptions {
 export interface JsonFormControls {
     name: string;
     type: string;
+    objectPath: string;
     options?: JsonFormControlOptions;
     validators: JsonFormValidators;
 }
 
 export interface FormType {
     key: string;
-    values: string[];
+    formControls: JsonFormControls[];
 }
 
 export interface JsonForm {
     forms: FormType[];
-    formControls: JsonFormControls[]
 }
