@@ -19,9 +19,6 @@ export class HttpInterceptorService implements HttpInterceptor {
         this.requestsCounter++;
         this.spinnerService.showSpinner();
         return next.handle(req).pipe(
-            tap(() => {
-                // do something if success
-            }),
             catchError((err) => {
                 this.snackbarService.showErrorSnackBar();
                 console.log('http error', err);
