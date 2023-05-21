@@ -3,6 +3,6 @@
         "production": true,
         "name": "PROD"
     },
-    "defaultLanguage": "##defaultLanguage##",
-    "apiUrl": "##apiUrl##"
+    "defaultLanguage": "sk",
+    "apiUrl": "http://64.225.105.163:3000/"
 }
