@@ -1,34 +1,24 @@
-<div
-  [ngSwitch]="control.type"
-  [formGroup]="form"
-  fxLayout="row"
-  class="m-b-15"
->
-  <mat-form-field
+<div [ngSwitch]="control.type">
+  <app-input-form-control
     *ngSwitchCase="'text'"
-    fxFlex="100"
-  >
-    <mat-label>
-      {{'taskManagement.taskDetail.formFields.' +  control.name| translate}}
-    </mat-label>
-    <input
-      matInput
-      [formControlName]="control.name"
-      [type]="control.type"
-    >
-  </mat-form-field>
-  <mat-form-field
+    [form]="form"
+    [control]="control"
+  ></app-input-form-control>
+  <app-input-form-control
     *ngSwitchCase="'number'"
-    fxFlex="100"
-  >
-    <mat-label>
-      {{'taskManagement.taskDetail.formFields.' +  control.name| translate}}
-    </mat-label>
-    <input
-      matInput
-      [formControlName]="control.name"
-      [type]="control.type"
-    >
-  </mat-form-field>
-  <p *ngSwitchDefault>default</p>
+    [form]="form"
+    [control]="control"
+  ></app-input-form-control>
+  <!-- datepicker not implemented yet, added empty component just for the sake of demonstration how form works -->
+  <app-date-picker-form-control
+    *ngSwitchCase="'datePicker'"
+    [form]="form"
+    [control]="control"
+  ></app-date-picker-form-control>
+  <!-- if there will be new input types, then new switch cases will ne added -->
+  <app-input-form-control
+    *ngSwitchDefault
+    [form]="form"
+    [control]="control"
+  ></app-input-form-control>
 </div>

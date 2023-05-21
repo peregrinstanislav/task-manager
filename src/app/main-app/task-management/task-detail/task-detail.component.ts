@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Task, TaskType } from '../models/task-management.model';
-import { JsonForm, JsonFormControls } from 'src/app/common-models/form-controls.model';
+import { JsonFormControls } from 'src/app/common-models/form-controls.model';
 import { JsonFormLoaderService } from 'src/app/common-services/form-json.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'app-task-detail',
