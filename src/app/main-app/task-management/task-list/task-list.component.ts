@@ -93,7 +93,7 @@ export class TaskListComponent implements OnInit {
     onAddNewTaskClick(): void {
         this.dialog.open(TaskChoserComponent, {
             autoFocus: true,
-            data: {},
+            disableClose: true,
             width: '300px'
         }).afterClosed().pipe(take(1)).subscribe(result => {
             if (result?.selectedType) {

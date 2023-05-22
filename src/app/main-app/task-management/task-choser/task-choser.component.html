@@ -8,9 +8,7 @@
     </strong>
   </h2>
 </div>
-<form
-  [formGroup]="form"
->
+<form [formGroup]="form">
   <div
     fxLayout="row"
     class="m-b-10"
@@ -22,9 +20,7 @@
       <mat-label>
         {{'taskManagement.taskChooser.placeholder' | translate}}
       </mat-label>
-      <mat-select
-        formControlName="taskType"
-      >
+      <mat-select formControlName="taskType">
         <mat-option
           *ngFor="let type of taskTypes"
           [value]="type"
