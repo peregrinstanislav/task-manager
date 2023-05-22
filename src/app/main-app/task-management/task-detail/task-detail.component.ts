@@ -42,11 +42,15 @@ export class TaskDetailComponent implements OnInit {
         this.formGroup = this.jsonFormLoaderService.createForm(this.jsonFormControls, this.selectedTask, this.formGroup, this.formBuilder);
     }
 
-    onCancelClick(): void {
-        this.dialogRef.close();
+    onBtnClick(result: boolean): void {
+        if (result) {
+            this.onSaveClick();
+        } else {
+            this.dialogRef.close();
+        }
     }
 
-    onSaveClick(): void {
+    private onSaveClick(): void {
         const task = {
             _id: this.selectedTask?._id ?? undefined,
             type: this.selectedType,

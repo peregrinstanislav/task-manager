@@ -1,0 +1,21 @@
+<div
+  fxLayout="row"
+  fxLayoutAlign="end center"
+  fxLayoutGap="10px"
+>
+  <button
+    mat-flat-button
+    color="warn"
+    (click)="closeDialog(false)"
+  >
+    {{btnNoTitle}}
+  </button>
+  <button
+    [disabled]="btnYesDisabled"
+    mat-flat-button
+    color="primary"
+    (click)="closeDialog(true)"
+  >
+    {{btnYesTitle}}
+  </button>
+</div>

@@ -2,34 +2,28 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmService } from 'src/app/common-services/confirm-dialog.service';
-import { ConfirmDialogComponent } from './confirm-dialog.component';
-import { DialogButtonsModule } from '../dialog-buttons/dialog-buttons.module';
-import { FormsModule } from '@angular/forms';
+import { DialogButtonsComponent } from './dialog-buttons.component';
 
 @NgModule({
     declarations: [
-        ConfirmDialogComponent
+        DialogButtonsComponent
     ],
     imports: [
-        MatDialogModule,
         MatButtonModule,
         FlexLayoutModule,
-        CommonModule,
-        DialogButtonsModule,
-        FormsModule
+        CommonModule
     ],
     entryComponents: [
-        ConfirmDialogComponent
+        DialogButtonsComponent
     ],
     exports: [
-        ConfirmDialogComponent
+        DialogButtonsComponent
     ],
     providers: [
         ConfirmService
     ]
 })
-export class ConfirmDialogModule
+export class DialogButtonsModule
 {
 }

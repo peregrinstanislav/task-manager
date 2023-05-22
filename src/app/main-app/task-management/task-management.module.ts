@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { DynamicFormControlModule } from 'src/app/shared-components/dynamic-form-control/dynamic-form-control.module';
 import { MatDividerModule } from '@angular/material/divider';
+import { DialogButtonsModule } from 'src/app/shared-components/dialog-buttons/dialog-buttons.module';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { MatDividerModule } from '@angular/material/divider';
         MatInputModule,
         MatDividerModule,
         DynamicFormControlModule,
+        DialogButtonsModule,
         RouterModule.forChild(TaskManagementRoutes),
     ],
     exports: [],

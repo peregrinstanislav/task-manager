@@ -30,11 +30,11 @@ export class TaskChoserComponent {
         });
     }
 
-    onChooseClick(): void {
-        this.dialogRef.close({ selectedType: this.form.value.taskType });
-    }
-
-    onCancelClick(): void {
-        this.dialogRef.close();
+    onBtnClick(result: boolean): void {
+        if (result) {
+            this.dialogRef.close({ selectedType: this.form.value.taskType });
+        } else {
+            this.dialogRef.close();
+        }
     }
 }

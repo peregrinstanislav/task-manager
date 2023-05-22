@@ -14,7 +14,6 @@
 <mat-divider></mat-divider>
 <form
   [formGroup]="formGroup"
-  (ngSubmit)="onSaveClick()"
   class="m-t-20"
 >
   <div *ngFor="let control of jsonFormControls">
@@ -23,26 +22,11 @@
       [control]="control"
     ></app-dynamic-form-control>
   </div>
-  <div
-    fxLayout="row"
-    fxLayoutAlign="end center"
-    fxLayoutGap="10px"
+  <app-dialog-buttons
+    [btnNoTitle]="'buttons.cancelButton' | translate"
+    [btnYesTitle]="'buttons.saveButton' | translate"
+    [btnYesDisabled]="!formGroup.valid"
+    (btnClick$)="onBtnClick($event)"
   >
-    <button
-      mat-flat-button
-      color="warn"
-      (click)="onCancelClick()"
-      type="button"
-    >
-      {{'buttons.cancelButton' | translate}}
-    </button>
-    <button
-      [disabled]="!formGroup.valid"
-      mat-flat-button
-      color="primary"
-      type="submit"
-    >
-      {{'buttons.saveButton' | translate}}
-    </button>
-  </div>
+  </app-dialog-buttons>
 </form>

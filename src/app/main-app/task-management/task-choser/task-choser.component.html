@@ -10,7 +10,6 @@
 </div>
 <form
   [formGroup]="form"
-  (ngSubmit)="onChooseClick()"
 >
   <div
     fxLayout="row"
@@ -25,7 +24,6 @@
       </mat-label>
       <mat-select
         formControlName="taskType"
-        (selectionChange)="selectionChanged(confirmButton)"
       >
         <mat-option
           *ngFor="let type of taskTypes"
@@ -37,27 +35,11 @@
       <mat-error *ngIf="form.controls['taskType'].hasError('required')">{{'required' | translate}}</mat-error>
     </mat-form-field>
   </div>
-  <div
-    fxLayout="row"
-    fxLayoutAlign="end center"
-    fxLayoutGap="10px"
+  <app-dialog-buttons
+    [btnNoTitle]="'buttons.cancelButton' | translate"
+    [btnYesTitle]="'buttons.chooseButton' | translate"
+    [btnYesDisabled]="!form.valid"
+    (btnClick$)="onBtnClick($event)"
   >
-    <button
-      mat-flat-button
-      color="warn"
-      (click)="onCancelClick()"
-      type="button"
-    >
-      {{'buttons.cancelButton' | translate}}
-    </button>
-    <button
-      #confirmButton
-      [disabled]="!form.valid"
-      mat-flat-button
-      color="primary"
-      (click)="onChooseClick()"
-    >
-      {{'buttons.chooseButton' | translate}}
-    </button>
-  </div>
+  </app-dialog-buttons>
 </form>
