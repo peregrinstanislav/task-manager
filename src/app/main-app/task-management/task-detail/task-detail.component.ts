@@ -37,11 +37,17 @@ export class TaskDetailComponent implements OnInit {
         }
     }
 
+    /**
+     * Method for initiating forms
+     */
     ngOnInit(): void {
         this.jsonFormControls = this.jsonFormLoaderService.getFormControls(this.selectedType);
         this.formGroup = this.jsonFormLoaderService.createForm(this.jsonFormControls, this.selectedTask, this.formGroup, this.formBuilder);
     }
 
+    /**
+     * Buttons click
+     */
     onBtnClick(result: boolean): void {
         if (result) {
             this.onSaveClick();
@@ -50,6 +56,9 @@ export class TaskDetailComponent implements OnInit {
         }
     }
 
+    /**
+     * Method for handling save click
+     */
     private onSaveClick(): void {
         const task = {
             _id: this.selectedTask?._id ?? undefined,

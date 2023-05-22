@@ -1,7 +1,6 @@
 <div class="p-15">
   <dx-data-grid
     keyExpr="_id"
-    #dxTableDetail
     [dataSource]="this.worker.fetchedData"
     [showBorders]="true"
     [remoteOperations]="false"
@@ -14,11 +13,8 @@
     [autoNavigateToFocusedRow]="true"
     [hoverStateEnabled]="true"
     [repaintChangesOnly]="true"
-    [(focusedRowKey)]="focusedRowKey"
     (onRowClick)="onRowClick($event)"
     (onFocusedRowChanging)="onFocusedRowChanging($event)"
-    (onCellHoverChanged)="hoveredRowKey=$event.key"
-    (mouseleave)="hoveredRowKey=0"
     (onToolbarPreparing)="onToolbarPreparing($event)"
     noDataText="{{'devextreme.emptyMessage' | translate}}"
     height="600px"
@@ -80,7 +76,7 @@
         icon="edit"
       ></dxi-button>
       <dxi-button
-      [onClick]="onDeleteClick"
+        [onClick]="onDeleteClick"
         name="delete"
         icon="trash"
       ></dxi-button>

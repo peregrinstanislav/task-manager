@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Task } from '../models/task-management.model';
-import { DxDataGridComponent } from 'devextreme-angular/ui/data-grid';
 import { FocusedRowChangingEvent, RowClickEvent, ToolbarPreparingEvent } from 'devextreme/ui/data_grid';
 import { calculateFilterExpression, calculateFilterExpressionOfTranslatedValue, calculateSortValue } from 'src/app/utils/misc.util';
 import { TasksService } from '../services/tasks.service';
@@ -23,11 +22,7 @@ export class TaskListComponent implements OnInit {
     worker: Worker<Task>;
 
     // devextreme konf
-    focusedRowKey = -1;
-    hoveredRowKey = -1;
     rowDeselectionRaised = false;
-
-    @ViewChild('dxTable') dxTable!: DxDataGridComponent;
 
     constructor(
         private translate: TranslateService,
@@ -42,7 +37,9 @@ export class TaskListComponent implements OnInit {
         this.worker.fetch(this.tasksService.getTasks());
     }
 
+    //============================================
     // methods for configuring devextreme datagrid
+    //============================================
     onFocusedRowChanging(event: FocusedRowChangingEvent): void {
         if (event.newRowIndex === event.prevRowIndex) {
             this.rowDeselectionRaised = true;
@@ -61,6 +58,7 @@ export class TaskListComponent implements OnInit {
             event.toolbarOptions.items[0].options.onClick = (): void => {
                 this.onAddNewTaskClick();
             };
+            // add refresh button into toolbar
             const refresh = cloneDeep(event.toolbarOptions.items[0]);
             refresh.name = 'refreshButton';
             refresh.options.hint = 'Refresh';
@@ -73,23 +71,30 @@ export class TaskListComponent implements OnInit {
         }
     }
 
+    // override filtering on name column to be accent insensitive
     calculateFilterExprName = (filterValue: any, selectedFilterOperation: any): any => {
         return calculateFilterExpression(filterValue, selectedFilterOperation, 'name');
     };
 
+    // override filtering on tasktype column to be accent insensitive
     calculateFilterExprType = (filterValue: any, selectedFilterOperation: any): any => {
         return calculateFilterExpressionOfTranslatedValue(this.translate, 'taskManagement.taskTypes.', filterValue, selectedFilterOperation, 'type');
     };
 
+    // override sorting on name column to be accent insensitive
     calculateSortValueName = (data: any): any => {
         return calculateSortValue(data, 'name');
     };
 
+    // override sorting on type column to be accent insensitive
     calculateSortValueType = (data: any): any => {
         return calculateSortValue(data, 'type');
     };
-    // end of methods for configuring devextreme datagrid
 
+    //===================================================
+    // methods for handling add, edit and delete of task
+    //===================================================
+    // add new task event
     onAddNewTaskClick(): void {
         this.dialog.open(TaskChoserComponent, {
             autoFocus: true,
@@ -101,10 +106,12 @@ export class TaskListComponent implements OnInit {
         });
     }
 
+    // edit task event
     onEditClick = (event: any): void => {
         this.openTaskDetail({ update: true, data: event.row.data });
     };
 
+    // open dialog with task detail
     private openTaskDetail(payload: any): void {
         this.dialog.open(TaskDetailComponent, {
             autoFocus: true,
@@ -122,6 +129,7 @@ export class TaskListComponent implements OnInit {
         });
     }
 
+    // delete task event
     onDeleteClick = (event: any): void => {
         this.confirmService.openConfirmDialog({
             title: this.translate.instant('taskManagement.dataGrid.deleteTitle'),
