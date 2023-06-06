@@ -1,38 +1,41 @@
-import { Observable, catchError, take } from "rxjs";
+import { EMPTY, Observable, catchError, map, of, take } from "rxjs";
 
 export class Worker<T> {
 
-    fetchedData: T[] = [];
+    public data$: Observable<T[]> = of([]);
 
-    fetch(actions$: Observable<T>): void {
-        this.perform(actions$).subscribe((data: any) => {
-            this.fetchedData = data;
-        });
+    fetch(actions$: Observable<T[]>): void {
+        this.data$ = actions$;
     }
 
     delete(actions$: Observable<T>, id: string): void {
         this.perform(actions$).subscribe(() => {
-            this.fetchedData = this.fetchedData?.filter(d => (d as any)._id !== id);
+            this.data$ = this.data$.pipe(
+                map(value => value.filter(v => (v as any)._id !== id))
+            );
         });
     }
 
     update(actions$: Observable<T>): void {
         this.perform(actions$).subscribe((res) => {
-            this.fetchedData = this.fetchedData?.map(d => (d as any)._id === (res as any)._id ? res : d);
+            this.data$ = this.data$.pipe(
+                map(value => value.map(d => (d as any)._id === (res as any)._id ? res : d))
+            );
         });
     }
 
     insert(actions$: Observable<T>): void {
         this.perform(actions$).subscribe((res) => {
-            this.fetchedData?.push(res);
+            this.data$ = this.data$.pipe(
+                map(value => [...value, res]));
         });
     }
 
-    private perform(actions$: Observable<T>): Observable<T> {
+    private perform(actions$: Observable<any>): Observable<any> {
         return actions$.pipe(
             take(1),
             catchError(() => {
-                return [];
+                return EMPTY;
             })
         );
     }

@@ -4,12 +4,12 @@ import { JsonForm, JsonFormControls } from '../common-models/form-controls.model
 import { lastValueFrom } from 'rxjs';
 import { AbstractControlOptions, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Task } from '../main-app/task-management/models/task-management.model';
-import { get } from 'lodash';
+import { get, set } from 'lodash';
 
 @Injectable({ providedIn: 'root' })
 export class JsonFormLoaderService {
 
-    static jsonForm: JsonForm;
+    private jsonForm!: JsonForm;
 
     constructor(private httpClient: HttpClient) { }
 
@@ -18,8 +18,8 @@ export class JsonFormLoaderService {
         return new Promise<JsonForm>((resolve, reject) => {
             lastValueFrom(this.httpClient.get(jsonFile))
                 .then((response: any) => {
-                    JsonFormLoaderService.jsonForm = (response as JsonForm);
-                    resolve(JsonFormLoaderService.jsonForm);
+                    this.jsonForm = (response as JsonForm);
+                    resolve(this.jsonForm);
                 })
                 .catch((response: any) => {
                     reject(`Could not load form json '${jsonFile}': ${JSON.stringify(response)}`);
@@ -37,18 +37,27 @@ export class JsonFormLoaderService {
     }
 
     getFormControls(selectedType: string): JsonFormControls[] {
-        const jsonFormControls: JsonFormControls[] = [];
-        const formType = JsonFormLoaderService.jsonForm.forms.find(f => f.key === selectedType);
+        const formType = this.jsonForm.forms.find(f => f.key === selectedType);
         if (formType) {
-            for (const formControl of formType.formControls) {
-                jsonFormControls.push(formControl);
-            }
+            return formType.formControls;
         }
-        return jsonFormControls;
+        return [];
     }
 
     getFormTypes(): string[] {
-        return JsonFormLoaderService.jsonForm.forms.map(form => form.key);
+        return this.jsonForm.forms.map(form => form.key);
+    }
+
+    getFormData(jsonFormControls: JsonFormControls[], formGroup: FormGroup, task: any): any {
+        for (const control of jsonFormControls) {
+            let value = formGroup.value[control.name];
+            if (control.type === 'number') {
+                value = Number(value);
+            }
+            const path = control.objectPath;
+            set(task, path, value);
+        }
+        return task;
     }
 
     private createValidators(control: JsonFormControls): AbstractControlOptions {

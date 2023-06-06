@@ -1,7 +1,8 @@
 <div class="p-15">
   <dx-data-grid
+    *ngIf="this.tasks$ | async as tasks"
     keyExpr="_id"
-    [dataSource]="this.worker.fetchedData"
+    [dataSource]="tasks"
     [showBorders]="true"
     [remoteOperations]="false"
     [allowColumnReordering]="true"

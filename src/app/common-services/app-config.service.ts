@@ -10,7 +10,7 @@ import { lastValueFrom } from 'rxjs';
 
 export class AppConfigService {
 
-    static settings: AppConfig;
+    public settings!: AppConfig;
 
     constructor(private http: HttpClient) {
     }
@@ -20,8 +20,8 @@ export class AppConfigService {
         return new Promise<AppConfig>((resolve, reject) => {
             lastValueFrom(this.http.get(jsonFile))
                 .then((response: any) => {
-                    AppConfigService.settings = (response as AppConfig);
-                    resolve(AppConfigService.settings);
+                    this.settings = (response as AppConfig);
+                    resolve(this.settings);
                 })
                 .catch((response: any) => {
                     reject(`Could not load file '${jsonFile}': ${JSON.stringify(response)}`);

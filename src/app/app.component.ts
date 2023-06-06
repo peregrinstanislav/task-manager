@@ -15,10 +15,10 @@ import localeSk from '@angular/common/locales/sk';
 export class AppComponent {
 
     languages = languages;
-    private config = AppConfigService.settings;
 
     constructor(
-        private translate: TranslateService
+        private translate: TranslateService,
+        private appConfig: AppConfigService
     ) {
         const langCodes = languages.map(l => l.code);
         this.translate.addLangs(langCodes);
@@ -30,7 +30,7 @@ export class AppComponent {
         }
         // if language is not supported, then set default lang from config
         if (!langCodes.includes(lang)) {
-            lang = this.config.defaultLanguage;
+            lang = appConfig.settings.defaultLanguage;
         }
         setLanguage(lang);
         this.translate.use(lang);

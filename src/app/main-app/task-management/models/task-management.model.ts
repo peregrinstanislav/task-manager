@@ -5,7 +5,7 @@ export interface Task {
     fields: any;
 }
 
-export enum TaskType {
-    WASH_DISHES = 'wash-dishes',
-    VACUUM_CLEAN = 'vacuum-clean'
+export interface TaskManagement {
+    tasks: Task[];
 }
+

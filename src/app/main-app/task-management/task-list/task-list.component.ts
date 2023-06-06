@@ -4,22 +4,23 @@ import { Task } from '../models/task-management.model';
 import { FocusedRowChangingEvent, RowClickEvent, ToolbarPreparingEvent } from 'devextreme/ui/data_grid';
 import { calculateFilterExpression, calculateFilterExpressionOfTranslatedValue, calculateSortValue } from 'src/app/utils/misc.util';
 import { TasksService } from '../services/tasks.service';
-import { Worker } from '../classes/worker.class';
 import { cloneDeep } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskChoserComponent } from '../task-choser/task-choser.component';
 import { ConfirmService } from 'src/app/common-services/confirm-dialog.service';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
+import { TaskManagementStore } from '../store/task-management.store';
 
 @Component({
     selector: 'app-task-list',
     templateUrl: './task-list.component.html',
-    styleUrls: ['./task-list.component.scss']
+    styleUrls: ['./task-list.component.scss'],
+    providers: [TaskManagementStore]
 })
 export class TaskListComponent implements OnInit {
 
-    worker: Worker<Task>;
+    tasks$: Observable<Task[]>;
 
     // devextreme konf
     rowDeselectionRaised = false;
@@ -28,13 +29,14 @@ export class TaskListComponent implements OnInit {
         private translate: TranslateService,
         private tasksService: TasksService,
         public dialog: MatDialog,
-        private confirmService: ConfirmService
+        private confirmService: ConfirmService,
+        private taskManagementStore: TaskManagementStore
     ) {
-        this.worker = new Worker<Task>();
+        this.tasks$ = this.taskManagementStore.tasks$;
     }
 
     ngOnInit(): void {
-        this.worker.fetch(this.tasksService.getTasks());
+        this.taskManagementStore.fetch();
     }
 
     //============================================
@@ -65,7 +67,7 @@ export class TaskListComponent implements OnInit {
             refresh.options.icon = 'refresh';
             refresh.options.text = 'Refresh';
             refresh.options.onClick = (): void => {
-                this.worker.fetch(this.tasksService.getTasks());
+                this.taskManagementStore.fetch();
             };
             event.toolbarOptions.items.splice(1, 0, refresh);
         }
@@ -121,9 +123,9 @@ export class TaskListComponent implements OnInit {
         }).afterClosed().pipe(take(1)).subscribe(result => {
             if (result) {
                 if (result.update) {
-                    this.worker.update(this.tasksService.updateTask(result.task));
+                    this.taskManagementStore.update(result.task);
                 } else {
-                    this.worker.insert(this.tasksService.insertTask(result.task));
+                    this.taskManagementStore.insert(result.task);
                 }
             }
         });
@@ -140,7 +142,7 @@ export class TaskListComponent implements OnInit {
         }).afterClosed().pipe(take(1)).subscribe((result: boolean) => {
             if (result) {
                 const id = event.row.data._id;
-                this.worker.delete(this.tasksService.deleteTask(id), id);
+                this.taskManagementStore.delete(id);
             }
         });
     };
